@@ -5,11 +5,20 @@ import _ from 'lodash';
 export class Column extends Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
-			taskList: props.taskList || [],
+			taskList: JSON.parse(localStorage.getItem(this.props.headerName)) || [],
 			colName: props.headerName
 
 		}
+	}
+
+	updateState(newList) {
+		localStorage.setItem(this.props.headerName, JSON.stringify(newList));
+
+		this.setState({
+			taskList: newList
+		})
 	}
 
 	addTask(obj) {
@@ -20,9 +29,8 @@ export class Column extends Component {
 			id:newList.length,
 			text: text
 		})
-		this.setState({
-			taskList: newList
-		});
+
+		this.updateState(newList);
 	}
 
 	allowDrop(e) {
@@ -73,9 +81,8 @@ export class Column extends Component {
 		});
 		console.log(this.state.taskList.length);
 		var newTaskList = Object.assign(this.state.taskList);
-		this.setState({
-			taskList: newTaskList
-		});
+		
+		this.updateState(newTaskList);
 	}
 
 	removeTask(e) {
@@ -86,9 +93,7 @@ export class Column extends Component {
 			});
 			console.log(this.state.taskList.length);
 			var newTaskList = Object.assign(this.state.taskList);
-			this.setState({
-				taskList: newTaskList
-			});
+			this.updateState(newTaskList);
 		}
 	}
 

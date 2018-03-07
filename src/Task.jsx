@@ -31,8 +31,8 @@ export class Task extends Component {
 
 	dragEnd(e) {
 		var xOffset = document.getElementById('root').getBoundingClientRect().x;		
-		console.log(e.pageX - xOffset);
-		console.log(e.clientX - xOffset);
+		// console.log(e.pageX - xOffset);
+		// console.log(e.clientX - xOffset);
 	}
 
 	save() {
