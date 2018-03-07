@@ -65,6 +65,19 @@ export class Column extends Component {
 
 	}
 
+	removeChild(e) {
+		var id = e.target.parentElement.id.split("_")[1];
+
+		_.remove(this.state.taskList, function(task) {
+			return (task.id == id);
+		});
+		console.log(this.state.taskList.length);
+		var newTaskList = Object.assign(this.state.taskList);
+		this.setState({
+			taskList: newTaskList
+		});
+	}
+
 	removeTask(e) {
 		if(e.info.colName === this.format(this.state.colName)){
 			console.log(this.state.taskList.length);
@@ -82,7 +95,7 @@ export class Column extends Component {
 	taskComponent(taskList) {
 		var prefix = this.format(this.props.headerName);
 		return taskList.map((taskObj)=>(
-			<Task id={prefix + "_"+taskObj.id} text={taskObj.text} key={taskObj.id} close={this.removeTask.bind(this)}/>
+			<Task id={prefix + "_"+taskObj.id} text={taskObj.text} key={taskObj.id} close={this.removeChild.bind(this)}/>
 		));
 	}
 
